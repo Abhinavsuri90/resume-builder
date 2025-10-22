@@ -18,7 +18,7 @@ app.use(cors({
     credentials: true
 }))
 
-app.get('/', (req, res)=> res.send("Server is live..."))
+app.get('/', (req, res)=> res.send("Server is live and healthy..."))
 app.use('/api/users', userRouter)
 app.use('/api/resumes', resumeRouter)
 app.use('/api/ai', aiRouter)
