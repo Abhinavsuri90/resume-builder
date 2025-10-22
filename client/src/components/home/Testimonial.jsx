@@ -6,24 +6,40 @@ const Testimonial = () => {
 
     const cardsData = [
         {
-            image: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200',
-            name: 'Briar Martin',
-            handle: '@neilstellar',
+            image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=60',
+            name: 'Arjun Sharma',
+            handle: '@arjundesigns',
+            review: 'This resume builder helped me land my dream job at a top tech company. The templates are professional and easy to customize!'
         },
         {
-            image: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200',
-            name: 'Avery Johnson',
-            handle: '@averywrites',
+            image: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=200&auto=format&fit=crop&q=60',
+            name: 'Priya Patel',
+            handle: '@priyacodes',
+            review: 'Amazing tool! I created multiple resume versions for different roles. The AI suggestions made my profile stand out.'
         },
         {
-            image: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=200&auto=format&fit=crop&q=60',
-            name: 'Jordan Lee',
-            handle: '@jordantalks',
+            image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&auto=format&fit=crop&q=60',
+            name: 'Rahul Kumar',
+            handle: '@rahultech',
+            review: 'Clean, modern templates and super easy to use. Got calls from 3 companies within a week of using this resume!'
         },
         {
-            image: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=200&auto=format&fit=crop&q=60',
-            name: 'Avery Johnson',
-            handle: '@averywrites',
+            image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&auto=format&fit=crop&q=60',
+            name: 'Sneha Agarwal',
+            handle: '@snehamarketing',
+            review: 'Perfect for fresh graduates! The step-by-step guidance helped me highlight my skills effectively.'
+        },
+        {
+            image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&auto=format&fit=crop&q=60',
+            name: 'Vikram Singh',
+            handle: '@vikramanalytics',
+            review: 'Switched from manual resume creation to this tool. Saved hours of formatting time. Highly recommended!'
+        },
+        {
+            image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=60',
+            name: 'Ananya Gupta',
+            handle: '@ananyaproduct',
+            review: 'The modern templates gave my resume a professional look. Impressed my recruiters immediately!'
         },
     ];
 
@@ -41,7 +57,7 @@ const Testimonial = () => {
                     <span className="text-xs text-slate-500">{card.handle}</span>
                 </div>
             </div>
-            <p className="text-sm py-4 text-gray-800">Radiant made undercutting all of our competitors an absolute breeze.</p>
+            <p className="text-sm py-4 text-gray-800">{card.review}</p>
         </div>
     );
 
@@ -53,7 +69,7 @@ const Testimonial = () => {
         <BookUserIcon className="size-4.5 stroke-green-600"/>
         <span>Testimonials</span>
     </div>
-    <Title title="Don't just take our words" description="Hear what our users say about us. We're always looking for ways to improve. If you have a positive experience with us, leave a review."/>
+    <Title title="Don't just take our word for it" description="See what our users say about their experience with our resume builder. Join thousands of professionals who landed their dream jobs."/>
     </div>
     <div className="marquee-row w-full mx-auto max-w-5xl overflow-hidden relative">
         <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none bg-gradient-to-r from-white to-transparent"></div>
