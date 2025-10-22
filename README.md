@@ -5,7 +5,7 @@ A modern, responsive resume builder application built with React, Node.js, and M
 ## 🌐 Live Demo
 
 ### Live Application
-- **Frontend**: [https://resume-builder-git-main-abhinav-suris-projects.vercel.app](https://resume-builder-git-main-abhinav-suris-projects.vercel.app)
+- **Frontend**: [https://resume-maker-ai-app.netlify.app](https://resume-maker-ai-app.netlify.app)
 - **Backend API**: [https://resume-builder-xw2z.onrender.com](https://resume-builder-xw2z.onrender.com)
 - **GitHub Repository**: [https://github.com/Abhinavsuri90/resume-builder](https://github.com/Abhinavsuri90/resume-builder)
 
@@ -149,12 +149,16 @@ resume-builder/
 
 ## 🚀 Deployment
 
-### Frontend (Vercel)
+### Frontend (Netlify)
 1. Push code to GitHub
-2. Connect repository to Vercel
-3. Deploy automatically
+2. Connect repository to Netlify
+3. Set build settings:
+   - Build command: `npm run build`
+   - Publish directory: `client/dist`
+   - Base directory: `client`
+4. Deploy automatically
 
-### Backend (Railway/Render)
+### Backend (Render)
 1. Connect GitHub repository
 2. Set environment variables
 3. Deploy with automatic builds
