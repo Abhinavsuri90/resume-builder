@@ -1,7 +1,10 @@
 import axios from 'axios'
 
+// Force production URL for deployment
+const baseURL = "https://resume-builder-xw2z.onrender.com"
+
 const api = axios.create({
-    baseURL: import.meta.env.VITE_BASE_URL || "https://resume-builder-xw2z.onrender.com"
+    baseURL: baseURL
 })
 
 export default api
