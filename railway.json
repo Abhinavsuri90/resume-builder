@@ -1,0 +1,8 @@
+{
+  "build": {
+    "builder": "@railway/nixpacks"
+  },
+  "deploy": {
+    "startCommand": "cd server && npm start"
+  }
+}
