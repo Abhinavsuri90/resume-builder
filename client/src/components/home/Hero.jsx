@@ -14,6 +14,11 @@ const Hero = () => {
         'https://saasly.prebuiltui.com/assets/companies-logo/microsoft.svg',
         'https://saasly.prebuiltui.com/assets/companies-logo/huawei.svg',
         'https://saasly.prebuiltui.com/assets/companies-logo/walmart.svg',
+        'https://cdn.worldvectorlogo.com/logos/google-1-1.svg',
+        'https://cdn.worldvectorlogo.com/logos/apple-14.svg',
+        'https://cdn.worldvectorlogo.com/logos/netflix-3.svg',
+        'https://cdn.worldvectorlogo.com/logos/spotify-2.svg',
+        'https://cdn.worldvectorlogo.com/logos/adobe-1.svg',
     ]
 
   return (
