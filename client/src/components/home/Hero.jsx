@@ -14,11 +14,6 @@ const Hero = () => {
         'https://saasly.prebuiltui.com/assets/companies-logo/microsoft.svg',
         'https://saasly.prebuiltui.com/assets/companies-logo/huawei.svg',
         'https://saasly.prebuiltui.com/assets/companies-logo/walmart.svg',
-        'https://cdn.worldvectorlogo.com/logos/google-1-1.svg',
-        'https://cdn.worldvectorlogo.com/logos/apple-14.svg',
-        'https://cdn.worldvectorlogo.com/logos/netflix-3.svg',
-        'https://cdn.worldvectorlogo.com/logos/spotify-2.svg',
-        'https://cdn.worldvectorlogo.com/logos/adobe-1.svg',
     ]
 
   return (
@@ -112,9 +107,9 @@ const Hero = () => {
                 </button>
             </div>
 
-            <p className="py-6 text-slate-600 mt-14">Trusting by leading brands, including</p>
+            <p className="py-3 text-slate-600 mt-8">Trusting by leading brands, including</p>
 
-            <div className="flex flex-wrap justify-between max-sm:justify-center gap-6 max-w-3xl w-full mx-auto py-4" id="logo-container">
+            <div className="flex flex-wrap justify-between max-sm:justify-center gap-6 max-w-3xl w-full mx-auto py-2" id="logo-container">
                 {logos.map((logo, index) => <img key={index} src={logo} alt="logo" className="h-6 w-auto max-w-xs" />)}
             </div>
         </div>
