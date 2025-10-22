@@ -2,6 +2,13 @@
 
 A modern, responsive resume builder application built with React, Node.js, and MongoDB. Create professional resumes with multiple templates, AI-powered content suggestions, and real-time preview.
 
+## 🌐 Live Demo
+
+### Live Application
+- **Frontend**: [https://resume-builder-git-main-abhinav-suris-projects.vercel.app](https://resume-builder-git-main-abhinav-suris-projects.vercel.app)
+- **Backend API**: [https://resume-builder-xw2z.onrender.com](https://resume-builder-xw2z.onrender.com)
+- **GitHub Repository**: [https://github.com/Abhinavsuri90/resume-builder](https://github.com/Abhinavsuri90/resume-builder)
+
 ## ✨ Features
 
 - **Multiple Resume Templates**: Choose from Classic, Modern, Minimal designs
