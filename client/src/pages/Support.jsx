@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLeftIcon, MessageCircleIcon, MailIcon, PhoneIcon, BookOpenIcon } from 'lucide-react'
+import { ArrowLeftIcon, MailIcon } from 'lucide-react'
 
 const Support = () => {
   return (
@@ -12,7 +12,7 @@ const Support = () => {
             <ArrowLeftIcon className="size-4"/> Back to Home
           </Link>
           <h1 className="text-3xl font-bold text-gray-900">Support Center</h1>
-          <p className="text-gray-600 mt-2">Get help with your resume builder questions and issues</p>
+          <p className="text-gray-600 mt-2">Get help directly from the creator - I'm here to assist you personally!</p>
         </div>
       </div>
 
@@ -42,7 +42,7 @@ const Support = () => {
 
               <div className="bg-white rounded-lg shadow-sm border p-6">
                 <h3 className="font-semibold text-gray-900 mb-2">Is my personal information secure?</h3>
-                <p className="text-gray-600">Absolutely! We use industry-standard encryption to protect your data. Your personal information is never shared with third parties without your consent.</p>
+                <p className="text-gray-600">Absolutely! As the sole developer, I take data security very seriously. I use industry-standard encryption to protect your data and personally ensure your information is never shared with third parties.</p>
               </div>
 
               <div className="bg-white rounded-lg shadow-sm border p-6">
@@ -60,60 +60,26 @@ const Support = () => {
           {/* Contact Options */}
           <div className="space-y-6">
             <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Contact Support</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">Get in Touch</h3>
               
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <MessageCircleIcon className="size-5 text-green-600 mt-1" />
-                  <div>
-                    <h4 className="font-medium text-gray-900">Live Chat</h4>
-                    <p className="text-sm text-gray-600">Available 24/7 for immediate assistance</p>
-                    <button className="text-green-600 text-sm mt-1 hover:underline">Start Chat</button>
-                  </div>
+              <div className="text-center">
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <MailIcon className="size-6 text-green-600" />
                 </div>
-
-                <div className="flex items-start gap-3">
-                  <MailIcon className="size-5 text-green-600 mt-1" />
-                  <div>
-                    <h4 className="font-medium text-gray-900">Email Support</h4>
-                    <p className="text-sm text-gray-600">Get help via email</p>
-                    <a href="mailto:support@resumebuilder.com" className="text-green-600 text-sm mt-1 hover:underline">support@resumebuilder.com</a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <PhoneIcon className="size-5 text-green-600 mt-1" />
-                  <div>
-                    <h4 className="font-medium text-gray-900">Phone Support</h4>
-                    <p className="text-sm text-gray-600">Mon-Fri, 9 AM - 6 PM EST</p>
-                    <a href="tel:+1-800-RESUME" className="text-green-600 text-sm mt-1 hover:underline">+1 (800) RESUME</a>
-                  </div>
-                </div>
+                <h4 className="font-medium text-gray-900 text-lg mb-2">Email Us</h4>
+                <p className="text-gray-600 mb-4">Have questions or need help? I personally respond to all emails and would love to hear from you!</p>
+                <a 
+                  href="mailto:abhinavsuri27@gmail.com" 
+                  className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-full font-medium transition-colors"
+                >
+                  <MailIcon className="size-4" />
+                  abhinavsuri27@gmail.com
+                </a>
+                <p className="text-sm text-gray-500 mt-3">I typically respond within 24 hours</p>
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Resources</h3>
-              
-              <div className="space-y-3">
-                <a href="#" className="flex items-center gap-3 text-gray-700 hover:text-green-600 transition">
-                  <BookOpenIcon className="size-4" />
-                  <span>User Guide</span>
-                </a>
-                <a href="#" className="flex items-center gap-3 text-gray-700 hover:text-green-600 transition">
-                  <BookOpenIcon className="size-4" />
-                  <span>Video Tutorials</span>
-                </a>
-                <a href="#" className="flex items-center gap-3 text-gray-700 hover:text-green-600 transition">
-                  <BookOpenIcon className="size-4" />
-                  <span>Resume Writing Tips</span>
-                </a>
-                <a href="#" className="flex items-center gap-3 text-gray-700 hover:text-green-600 transition">
-                  <BookOpenIcon className="size-4" />
-                  <span>Template Gallery</span>
-                </a>
-              </div>
-            </div>
+
           </div>
         </div>
       </div>
