@@ -13,8 +13,6 @@ import Privacy from './pages/Privacy'
 import Terms from './pages/Terms'
 import Company from './pages/Company'
 import Blogs from './pages/Blogs'
-import Community from './pages/Community'
-import Careers from './pages/Careers'
 import Affiliate from './pages/Affiliate'
 import { useDispatch } from 'react-redux'
 import api from './configs/api'
@@ -68,8 +66,6 @@ const App = () => {
         <Route path='terms' element={<Terms />}/>
         <Route path='company' element={<Company />}/>
         <Route path='blogs' element={<Blogs />}/>
-        <Route path='community' element={<Community />}/>
-        <Route path='careers' element={<Careers />}/>
         <Route path='affiliate' element={<Affiliate />}/>
 
       </Routes>

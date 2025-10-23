@@ -68,8 +68,6 @@ const Footer = () => {
                 <ul className="space-y-3">
                     <li><Link to="/company" className="hover:text-green-600 transition-colors duration-200 flex items-center">🏢 Company</Link></li>
                     <li><Link to="/blogs" className="hover:text-green-600 transition-colors duration-200 flex items-center">📝 Blogs</Link></li>
-                    <li><Link to="/community" className="hover:text-green-600 transition-colors duration-200 flex items-center">👥 Community</Link></li>
-                    <li><Link to="/careers" className="hover:text-green-600 transition-colors duration-200 flex items-center">🚀 Careers<span className="text-xs text-white bg-green-600 rounded-md ml-2 px-2 py-1 animate-pulse">We're hiring!</span></Link></li>
                     <li><Link to="/about" className="hover:text-green-600 transition-colors duration-200 flex items-center">ℹ️ About</Link></li>
                 </ul>
             </div>
