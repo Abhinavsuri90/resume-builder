@@ -237,24 +237,6 @@ This project is licensed under the MIT License.
 **Abhinav Suri**
 - GitHub: [@Abhinavsuri90](https://github.com/Abhinavsuri90)
 
-## � Project Statistics
-
-- **Total Commits**: 30+ quality commits for academic evaluation
-- **Code Quality**: ESLint configured with best practices
-- **Responsive Design**: Mobile-first approach with Tailwind CSS  
-- **Performance**: Optimized with Vite bundler and code splitting
-- **SEO Ready**: Proper meta tags and semantic HTML structure
-- **Accessibility**: WCAG guidelines followed for inclusive design
-
-## 🎯 Key Achievements
-
-- ✅ **Full-Stack Implementation**: Complete MERN stack application
-- ✅ **AI Integration**: Google Gemini AI for content generation
-- ✅ **Professional UI/UX**: Modern design with smooth animations
-- ✅ **Comprehensive Features**: 10+ major features implemented
-- ✅ **Production Ready**: Deployed on Netlify (frontend) and Render (backend)
-- ✅ **Academic Excellence**: Meets all university project requirements
-
 ## 🚀 Future Enhancements
 
 - [ ] **Advanced AI**: GPT-4 integration for better content suggestions
@@ -278,11 +260,10 @@ This project is licensed under the MIT License.
 ### 📞 Contact & Support
 
 - **Developer**: Abhinav Suri
-- **Email**: Contact through GitHub profile
-- **LinkedIn**: [Connect on LinkedIn](https://linkedin.com/in/abhinavsuri)
-- **Portfolio**: [View Live Project](https://resume-maker-ai-app.netlify.app)
+- Contact through GitHub profile
+
 
 **🌟 If this project helped you, please give it a star on GitHub!**
 
 ---
-**Built with ❤️ in India 🇮🇳 | Made for Academic Excellence 🎓**
+**Built with ❤️ in India 🇮🇳 **
