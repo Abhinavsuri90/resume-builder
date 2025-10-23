@@ -19,6 +19,57 @@ const Login = () => {
         email: '',
         password: ''
     })
+    const [retryCount, setRetryCount] = React.useState(0)
+    const [serverStatus, setServerStatus] = React.useState('checking') // checking, online, offline
+
+    // Check server status on component mount
+    React.useEffect(() => {
+        const checkServerStatus = async () => {
+            try {
+                // Try a simple endpoint to check if server is responsive
+                await api.get('/', { timeout: 8000 })
+                setServerStatus('online')
+            } catch (error) {
+                setServerStatus('offline')
+                // Try to wake up the server and retry after a delay
+                toast('Server is starting up... This may take up to 60 seconds.', {
+                    icon: '⏳',
+                    duration: 6000
+                })
+                
+                // Retry after 10 seconds
+                setTimeout(async () => {
+                    try {
+                        await api.get('/', { timeout: 15000 })
+                        setServerStatus('online')
+                        toast.success('Server is now online!')
+                    } catch (retryError) {
+                        // Server still not responding after retry
+                        console.log('Server still offline after retry')
+                    }
+                }, 10000)
+            }
+        }
+        checkServerStatus()
+    }, [])
+
+    // Helper function to make API request with retry
+    const makeAuthRequest = async (retryAttempt = 0) => {
+        try {
+            const { data } = await api.post(`/api/users/${state}`, formData)
+            return data
+        } catch (error) {
+            // If it's a timeout and we haven't retried too many times
+            if (error.code === 'ECONNABORTED' && retryAttempt < 2) {
+                toast.error(`Server is starting up... Retrying (${retryAttempt + 1}/2)`, {
+                    duration: 2000
+                })
+                await new Promise(resolve => setTimeout(resolve, 3000)) // Wait 3 seconds
+                return makeAuthRequest(retryAttempt + 1)
+            }
+            throw error
+        }
+    }
 
     // Validate form before submission
     const validateForm = () => {
@@ -55,17 +106,28 @@ const Login = () => {
         
         setIsLoading(true)
         setErrors({})
+        setRetryCount(0)
         
         try {
-            const { data } = await api.post(`/api/users/${state}`, formData)
+            const data = await makeAuthRequest()
+            setServerStatus('online') // Update status on successful request
             dispatch(login(data))
             localStorage.setItem('token', data.token)
             toast.success(data.message)
         } catch (error) {
-            const errorMessage = error?.response?.data?.message || 
-                               error.code === 'ECONNABORTED' ? 'Request timeout. Please try again.' :
-                               error.message || 'Something went wrong. Please try again.'
-            toast.error(errorMessage)
+            let errorMessage = 'Something went wrong. Please try again.'
+            
+            if (error.code === 'ECONNABORTED') {
+                errorMessage = 'Server is starting up (this may take 30-60 seconds). Please try again in a moment.'
+            } else if (error?.response?.data?.message) {
+                errorMessage = error.response.data.message
+            } else if (error.message) {
+                errorMessage = error.message
+            }
+            
+            toast.error(errorMessage, {
+                duration: 5000 // Show longer for timeout messages
+            })
         } finally {
             setIsLoading(false)
         }
@@ -138,11 +200,23 @@ const Login = () => {
                 <button 
                     type="submit" 
                     disabled={isLoading}
-                    className="mt-2 w-full h-11 rounded-full text-white bg-green-500 hover:bg-green-600 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
+                    className={`mt-2 w-full h-11 rounded-full text-white transition-colors flex items-center justify-center gap-2 ${
+                        serverStatus === 'offline' 
+                            ? 'bg-orange-500 hover:bg-orange-600' 
+                            : 'bg-green-500 hover:bg-green-600'
+                    } disabled:bg-gray-400 disabled:cursor-not-allowed`}
                 >
                     {isLoading && <Loader2 size={16} className="animate-spin" />}
-                    {isLoading ? 'Please wait...' : (state === "login" ? "Login" : "Sign up")}
+                    {isLoading ? 'Connecting to server...' : 
+                     serverStatus === 'offline' ? 'Try to Connect' :
+                     (state === "login" ? "Login" : "Sign up")}
                 </button>
+                
+                {serverStatus === 'offline' && (
+                    <p className="text-orange-600 text-xs mt-2 text-center">
+                        Server is starting up (may take 30-60 seconds)
+                    </p>
+                )}
                 <p className={`text-gray-500 text-sm mt-3 mb-11 ${isLoading ? 'pointer-events-none opacity-50' : 'cursor-pointer'}`}>
                     {state === "login" ? "Don't have an account?" : "Already have an account?"} 
                     <a 

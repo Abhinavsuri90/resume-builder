@@ -5,7 +5,7 @@ const baseURL = "https://resume-builder-xw2z.onrender.com"
 
 const api = axios.create({
     baseURL: baseURL,
-    timeout: 10000, // 10 second timeout
+    timeout: 30000, // 30 second timeout for cold starts
     headers: {
         'Content-Type': 'application/json',
     }
@@ -28,16 +28,18 @@ api.interceptors.request.use(
 // Response interceptor for better error handling
 api.interceptors.response.use(
     (response) => response,
-    (error) => {
+    async (error) => {
         // Handle common errors
         if (error.code === 'ECONNABORTED') {
-            error.message = 'Request timeout. Please check your connection.'
+            error.message = 'Server is starting up, please wait and try again...'
         } else if (error.response?.status === 401) {
             // Clear invalid token
             localStorage.removeItem('token')
-            window.location.href = '/app?state=login'
+            // Don't auto-redirect, let user try again
         } else if (error.response?.status >= 500) {
             error.message = 'Server error. Please try again later.'
+        } else if (error.code === 'NETWORK_ERROR' || !error.response) {
+            error.message = 'Network error. Please check your connection.'
         }
         return Promise.reject(error)
     }
