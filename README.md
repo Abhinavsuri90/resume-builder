@@ -237,16 +237,7 @@ This project is licensed under the MIT License.
 **Abhinav Suri**
 - GitHub: [@Abhinavsuri90](https://github.com/Abhinavsuri90)
 
-## 🚀 Future Enhancements
-
-- [ ] **Advanced AI**: GPT-4 integration for better content suggestions
-- [ ] **More Templates**: Additional professional resume designs
-- [ ] **Team Collaboration**: Multi-user resume editing
-- [ ] **Analytics Dashboard**: Resume performance tracking
-- [ ] **Mobile App**: React Native application
-- [ ] **Internationalization**: Multi-language support
-
-## �🙏 Acknowledgments
+##  Acknowledgments
 
 - **React Team** for the amazing framework and ecosystem
 - **MongoDB** for the flexible and scalable database solution
