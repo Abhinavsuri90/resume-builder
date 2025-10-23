@@ -1,12 +1,14 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import DemoModal from '../DemoModal';
 
 const Hero = () => {
 
     const {user} = useSelector(state => state.auth)
 
     const [menuOpen, setMenuOpen] = React.useState(false);
+    const [demoModalOpen, setDemoModalOpen] = React.useState(false);
 
     const logos = [
         'https://saasly.prebuiltui.com/assets/companies-logo/instagram.svg',
@@ -101,7 +103,10 @@ const Hero = () => {
                     Get started
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-right ml-1 size-4" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
                 </Link>
-                <button className="flex items-center gap-2 border border-slate-400 hover:bg-green-50 transition rounded-full px-7 h-12 text-slate-700">
+                <button 
+                    onClick={() => setDemoModalOpen(true)}
+                    className="flex items-center gap-2 border border-slate-400 hover:bg-green-50 hover:border-green-400 transition-all duration-200 rounded-full px-7 h-12 text-slate-700 hover:text-green-700"
+                >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-video size-5" aria-hidden="true"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"></path><rect x="2" y="6" width="14" height="12" rx="2"></rect></svg>
                     <span>Try demo</span>
                 </button>
@@ -114,6 +119,13 @@ const Hero = () => {
             </div>
         </div>
     </div>
+    
+    {/* Demo Modal */}
+    <DemoModal 
+        isOpen={demoModalOpen} 
+        onClose={() => setDemoModalOpen(false)} 
+    />
+    
     <style>
         {`
             @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
