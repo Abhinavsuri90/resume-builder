@@ -14,40 +14,101 @@ import Terms from './pages/Terms'
 import Company from './pages/Company'
 import Blogs from './pages/Blogs'
 import Affiliate from './pages/Affiliate'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import api from './configs/api'
-import { login, setLoading } from './app/features/authSlice'
-import {Toaster} from 'react-hot-toast'
+import { login, setLoading, logout, checkTokenExpiry } from './app/features/authSlice'
+import { Toaster } from 'react-hot-toast'
+import { setupTokenValidation, tokenUtils, performLogout } from './utils/authUtils'
+import SessionMonitor from './components/SessionMonitor'
 
 const App = () => {
 
   const dispatch = useDispatch()
+  const { token, isAuthenticated } = useSelector(state => state.auth)
 
   const getUserData = async () => {
-    const token = localStorage.getItem('token')
+    const storedToken = localStorage.getItem('token')
+    
     try {
-      if(token){
-        const { data } = await api.get('/api/users/data', {headers: {Authorization: token}})
-        if(data.user){
-          dispatch(login({token, user: data.user}))
+      if (storedToken) {
+        // Validate token format first
+        if (!tokenUtils.isValidToken(storedToken)) {
+          console.warn('Invalid token format, clearing storage')
+          performLogout(dispatch, 'Invalid token format')
+          return
         }
-        dispatch(setLoading(false))
-      }else{
-        dispatch(setLoading(false))
+
+        // Check if token is expired
+        if (tokenUtils.isTokenExpired(storedToken)) {
+          console.warn('Token expired, clearing storage')
+          performLogout(dispatch, 'Token expired')
+          return
+        }
+
+        // Validate with server
+        const { data } = await api.get('/api/users/data')
+        
+        if (data.user) {
+          const loginData = {
+            token: storedToken,
+            user: data.user,
+            expiresIn: 30 * 24 * 60 * 60 // 30 days
+          }
+          dispatch(login(loginData))
+        }
       }
     } catch (error) {
+      console.error('Auth validation error:', error)
+      
+      // Handle specific error codes
+      if (error.response?.data?.code === 'TOKEN_EXPIRED') {
+        performLogout(dispatch, 'Session expired')
+      } else if (error.response?.data?.code === 'USER_NOT_FOUND') {
+        performLogout(dispatch, 'User not found')
+      } else if (error.response?.status === 401) {
+        performLogout(dispatch, 'Authentication failed')
+      } else {
+        // Network or other errors - don't log out user immediately
+        console.warn('Network error during auth validation')
+      }
+    } finally {
       dispatch(setLoading(false))
-      console.log(error.message)
     }
   }
 
-  useEffect(()=>{
+  // Setup authentication monitoring
+  useEffect(() => {
     getUserData()
-  },[])
+    
+    // Setup periodic token validation
+    const cleanupTokenValidation = setupTokenValidation(dispatch)
+    
+    // Setup visibility change handler to check auth when tab becomes active
+    const handleVisibilityChange = () => {
+      if (!document.hidden && isAuthenticated) {
+        dispatch(checkTokenExpiry())
+      }
+    }
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+    
+    return () => {
+      cleanupTokenValidation()
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+    }
+  }, [])
+
+  // Monitor token changes and validate
+  useEffect(() => {
+    if (token && tokenUtils.isTokenExpired(token)) {
+      performLogout(dispatch, 'Token expired')
+    }
+  }, [token, dispatch])
 
   return (
     <>
-    <Toaster />
+      <Toaster />
+      <SessionMonitor />
       <Routes>
         <Route path='/' element={<Home />}/>
 

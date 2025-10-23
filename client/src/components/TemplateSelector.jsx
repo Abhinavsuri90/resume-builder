@@ -20,10 +20,20 @@ const TemplateSelector = ({ selectedTemplate, onChange }) => {
             name: "Minimal Image",
             preview: "Minimal design with a single image and clean typography"
         },
-            {
+        {
             id: "minimal",
             name: "Minimal",
             preview: "Ultra-clean design that puts your content front and center"
+        },
+        {
+            id: "tech-executive",
+            name: "Tech Executive",
+            preview: "Professional executive design perfect for CTOs, Engineering Managers, and senior tech roles"
+        },
+        {
+            id: "creative",
+            name: "Creative Pro",
+            preview: "Vibrant, artistic design ideal for designers, marketers, and creative professionals"
         },
     ]
   return (

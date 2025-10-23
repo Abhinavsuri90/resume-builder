@@ -38,6 +38,16 @@ const DemoModal = ({ isOpen, onClose }) => {
       name: 'Minimal',
       color: 'bg-green-500',
       preview: 'Clean minimalist'
+    },
+    'tech-executive': {
+      name: 'Tech Executive',
+      color: 'bg-slate-800',
+      preview: 'Executive design for senior tech roles'
+    },
+    creative: {
+      name: 'Creative Pro',
+      color: 'bg-gradient-to-r from-pink-500 to-purple-600',
+      preview: 'Vibrant design for creative professionals'
     }
   }
 

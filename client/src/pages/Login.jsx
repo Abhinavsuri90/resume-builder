@@ -1,18 +1,20 @@
-import { Lock, Mail, User2Icon, Loader2 } from 'lucide-react'
+import { Lock, Mail, User2Icon, Loader2, AlertCircle } from 'lucide-react'
 import React from 'react'
 import api from '../configs/api'
-import { useDispatch } from 'react-redux'
-import { login } from '../app/features/authSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { login, setAuthError, clearAuthError, checkTokenExpiry } from '../app/features/authSlice'
 import toast from 'react-hot-toast'
 
 const Login = () => {
 
     const dispatch = useDispatch()
-  const query = new URLSearchParams(window.location.search)
-  const urlState = query.get('state')
-  const [state, setState] = React.useState(urlState || "login")
-  const [isLoading, setIsLoading] = React.useState(false)
-  const [errors, setErrors] = React.useState({})
+    const { authErrors } = useSelector(state => state.auth)
+    const query = new URLSearchParams(window.location.search)
+    const urlState = query.get('state')
+    const reason = query.get('reason')
+    const [state, setState] = React.useState(urlState || "login")
+    const [isLoading, setIsLoading] = React.useState(false)
+    const [errors, setErrors] = React.useState({})
 
     const [formData, setFormData] = React.useState({
         name: '',
@@ -21,6 +23,32 @@ const Login = () => {
     })
     const [retryCount, setRetryCount] = React.useState(0)
     const [serverStatus, setServerStatus] = React.useState('checking') // checking, online, offline
+
+    // Handle redirect reasons
+    React.useEffect(() => {
+        if (reason) {
+            const messages = {
+                'expired': 'Your session has expired. Please login again.',
+                'invalid': 'Invalid authentication. Please login again.',
+                'error': 'Authentication error occurred. Please login again.'
+            }
+            
+            if (messages[reason]) {
+                toast.error(messages[reason], { duration: 5000 })
+                dispatch(setAuthError(messages[reason]))
+            }
+            
+            // Clear URL parameters
+            window.history.replaceState({}, '', window.location.pathname)
+        }
+        
+        // Check token expiry on component mount
+        dispatch(checkTokenExpiry())
+        
+        return () => {
+            dispatch(clearAuthError())
+        }
+    }, [reason, dispatch])
 
     // Check server status on component mount
     React.useEffect(() => {
@@ -111,9 +139,17 @@ const Login = () => {
         try {
             const data = await makeAuthRequest()
             setServerStatus('online') // Update status on successful request
-            dispatch(login(data))
-            localStorage.setItem('token', data.token)
-            toast.success(data.message)
+            
+            // Enhanced login data with expiry info
+            const loginData = {
+                token: data.token,
+                user: data.user,
+                expiresIn: 30 * 24 * 60 * 60 // 30 days in seconds
+            }
+            
+            dispatch(login(loginData))
+            dispatch(clearAuthError())
+            toast.success(data.message || 'Login successful!')
         } catch (error) {
             let errorMessage = 'Something went wrong. Please try again.'
             
@@ -121,10 +157,15 @@ const Login = () => {
                 errorMessage = 'Server is starting up (this may take 30-60 seconds). Please try again in a moment.'
             } else if (error?.response?.data?.message) {
                 errorMessage = error.response.data.message
+            } else if (error?.response?.data?.code === 'USER_NOT_FOUND') {
+                errorMessage = 'User not found. Please check your credentials.'
+            } else if (error?.response?.data?.code === 'INVALID_PASSWORD') {
+                errorMessage = 'Invalid password. Please try again.'
             } else if (error.message) {
                 errorMessage = error.message
             }
             
+            dispatch(setAuthError(errorMessage))
             toast.error(errorMessage, {
                 duration: 5000 // Show longer for timeout messages
             })
@@ -147,6 +188,14 @@ const Login = () => {
       <form onSubmit={handleSubmit} className="sm:w-[350px] w-full text-center border border-gray-300/60 rounded-2xl px-8 bg-white">
                 <h1 className="text-gray-900 text-3xl mt-10 font-medium">{state === "login" ? "Login" : "Sign up"}</h1>
                 <p className="text-gray-500 text-sm mt-2">Please {state} to continue</p>
+                
+                {/* Show authentication errors */}
+                {authErrors && (
+                    <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2">
+                        <AlertCircle size={16} className="text-red-500 flex-shrink-0" />
+                        <p className="text-red-700 text-sm">{authErrors}</p>
+                    </div>
+                )}
                 {state !== "login" && (
                     <div className="mt-6">
                         <div className={`flex items-center w-full bg-white border h-12 rounded-full overflow-hidden pl-6 gap-2 ${errors.name ? 'border-red-400' : 'border-gray-300/80'}`}>
