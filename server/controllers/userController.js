@@ -210,10 +210,28 @@ export const getUserResumes = async (req, res) => {
     try {
         const userId = req.userId;
 
+        // Validate userId
+        if(!userId){
+            return res.status(400).json({
+                success: false,
+                message: 'User ID not found in request',
+                code: 'MISSING_USER_ID'
+            })
+        }
+
         // return user resumes
-        const resumes = await Resume.find({userId})
-        return res.status(200).json({resumes})
+        const resumes = await Resume.find({userId}).sort({ updatedAt: -1 })
+        return res.status(200).json({
+            success: true,
+            resumes,
+            count: resumes.length
+        })
     } catch (error) {
-        return res.status(400).json({message: error.message})
+        console.error('Get resumes error:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Failed to fetch resumes',
+            code: 'FETCH_RESUMES_ERROR'
+        })
     }
 }
